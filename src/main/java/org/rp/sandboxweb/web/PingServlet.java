@@ -1,6 +1,5 @@
 package org.rp.sandboxweb.web;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +14,12 @@ public class PingServlet extends HttpServlet {
     private static Logger logger;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         logger = LogManager.getLogger(PingServlet.class);
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("doGet called");
         resp.setContentType("text/plain, charset=UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
