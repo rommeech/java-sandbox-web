@@ -14,4 +14,11 @@
         <url-pattern>/ping</url-pattern>
     </servlet-mapping>
 
+    <resource-ref>
+        <description>PostgreSQL Datasource</description>
+        <res-ref-name>jdbc/DBDataSource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+
 </web-app>
