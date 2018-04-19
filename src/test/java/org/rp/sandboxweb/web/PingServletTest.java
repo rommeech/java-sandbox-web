@@ -33,7 +33,7 @@ public class PingServletTest {
     }
 
     @Test
-    public void doGet() throws IOException {
+    public void doGet() throws IOException, WebException {
         servlet.doGet(request, response);
         verify(response, times(1)).setStatus(HttpServletResponse.SC_OK);
         assertEquals("OK", stringWriter.toString().replace("\r", "").replace("\n", ""));

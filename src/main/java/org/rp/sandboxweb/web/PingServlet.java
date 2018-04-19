@@ -1,11 +1,8 @@
 package org.rp.sandboxweb.web;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -13,6 +10,8 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.rp.sandboxweb.dao.DAOException;
+import org.rp.sandboxweb.dao.DBConnectionManager;
 
 public class PingServlet extends HttpServlet {
 
@@ -24,35 +23,20 @@ public class PingServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, WebException {
         logger.info("doGet called");
         resp.setContentType("text/plain, charset=UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = resp.getWriter();
 
-        InitialContext cxt;
-        DataSource ds = null;
-        try {
-            cxt = new InitialContext();
-            ds = (DataSource) cxt.lookup("java:/comp/env/jdbc/DBDataSource");
-        } catch (NamingException e) {
-            e.printStackTrace();
+        try(Connection connection = DBConnectionManager.getConnection()) {
+            writer.println("connection: " + connection);
+        } catch (SQLException | DAOException e) {
+            logger.fatal("Cannot get DB connection; " + e.getMessage());
+            throw new WebException("Cannot get DB connection; " + e.getMessage());
         }
 
-        Connection connection = null;
-        try {
-            connection = ds.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        writer.println("OK " + ds + " / " + connection);
-
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        writer.println("OK");
     }
 
     @Override
