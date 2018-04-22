@@ -2,19 +2,19 @@ package org.rp.sandboxweb.ui;
 
 import javax.servlet.ServletException;
 
-public class UIException extends ServletException {
+public class ExceptionUI extends ServletException {
 
     private static final long serialVersionUID = -2086675003283416513L;
 
-    public UIException() {
+    public ExceptionUI() {
         super();
     }
 
-    public UIException(String message) {
+    public ExceptionUI(String message) {
         super(message);
     }
 
-    public UIException(String message, Throwable cause) {
+    public ExceptionUI(String message, Throwable cause) {
         super(message, cause);
     }
 }
