@@ -8,7 +8,7 @@ public class UIException extends ServletException {
 
     public UIException() {
         super();
-    gi}
+    }
 
     public UIException(String message) {
         super(message);

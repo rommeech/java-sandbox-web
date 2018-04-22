@@ -24,7 +24,7 @@ public class PingServlet extends HttpServlet {
         resp.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = resp.getWriter();
 
-        /*try(Connection connection = DBConnectionManager.getConnection()) {
+        /*try(Connection connection = DBConnectionFactory.getConnection()) {
             writer.println("connection: " + connection);
         } catch (SQLException | DAOException e) {
             logger.fatal("Cannot get DB connection; " + e.getMessage());

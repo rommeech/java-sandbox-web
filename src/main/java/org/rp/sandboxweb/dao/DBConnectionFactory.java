@@ -10,11 +10,9 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DBConnectionManager {
+public class DBConnectionFactory {
 
-
-
-    private static Logger logger = LogManager.getLogger(DBConnectionManager.class);
+    private static Logger logger = LogManager.getLogger(DBConnectionFactory.class);
 
     public static Connection getConnection() throws DAOException {
 
