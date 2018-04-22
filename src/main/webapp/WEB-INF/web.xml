@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>ping</servlet-name>
-        <servlet-class>org.rp.sandboxweb.web.PingServlet</servlet-class>
+        <servlet-class>org.rp.sandboxweb.ui.PingServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

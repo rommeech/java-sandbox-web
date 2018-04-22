@@ -1,4 +1,4 @@
-package org.rp.sandboxweb.web;
+package org.rp.sandboxweb.ui;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class PingServletTest {
     }
 
     @Test
-    public void doGet() throws IOException, WebException {
+    public void doGet() throws IOException, UIException {
         servlet.doGet(request, response);
         verify(response, times(1)).setStatus(HttpServletResponse.SC_OK);
         assertEquals("OK", stringWriter.toString().replace("\r", "").replace("\n", ""));

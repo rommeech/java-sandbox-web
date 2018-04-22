@@ -1,17 +1,12 @@
-package org.rp.sandboxweb.web;
+package org.rp.sandboxweb.ui;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.rp.sandboxweb.dao.DAOException;
-import org.rp.sandboxweb.dao.DBConnectionManager;
 
 public class PingServlet extends HttpServlet {
 
@@ -23,18 +18,18 @@ public class PingServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, WebException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, UIException {
         logger.info("doGet called");
         resp.setContentType("text/plain, charset=UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
         PrintWriter writer = resp.getWriter();
 
-        try(Connection connection = DBConnectionManager.getConnection()) {
+        /*try(Connection connection = DBConnectionManager.getConnection()) {
             writer.println("connection: " + connection);
         } catch (SQLException | DAOException e) {
             logger.fatal("Cannot get DB connection; " + e.getMessage());
-            throw new WebException("Cannot get DB connection; " + e.getMessage());
-        }
+            throw new UIException("Cannot get DB connection; " + e.getMessage());
+        }*/
 
         writer.println("OK");
     }
