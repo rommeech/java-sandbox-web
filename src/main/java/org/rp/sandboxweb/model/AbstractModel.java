@@ -1,10 +1,15 @@
 package org.rp.sandboxweb.model;
 
+import com.sun.tools.internal.ws.processor.model.ModelException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.Serializable;
 import java.util.Objects;
 
-public class AbstractModel<T> implements Serializable {
+public abstract class AbstractModel<T> implements Serializable {
 
+    private static Logger logger = LogManager.getLogger(AbstractModel.class);
     private static final long serialVersionUID = -5715298230785711619L;
 
     private T id;
@@ -20,7 +25,11 @@ public class AbstractModel<T> implements Serializable {
         return id;
     }
 
-    public void setId(T id) {
+    public void setId(T id) throws ExceptionModel {
+        if (this.id != null && !id.equals(this.id)) {
+            logger.error("Try to change Model ID");
+            throw new ModelException("Cannot change ID!");
+        }
         this.id = id;
     }
 
