@@ -1,5 +1,8 @@
 package org.rp.sandboxweb.ui;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -8,9 +11,11 @@ import java.util.List;
 
 public class UrlParserFilter implements Filter {
 
+    private static Logger logger;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
+        logger = LogManager.getLogger(UrlParserFilter.class);
     }
 
     @Override
@@ -20,12 +25,10 @@ public class UrlParserFilter implements Filter {
 
         if (request instanceof HttpServletRequest) {
             String pathInfo = ((HttpServletRequest)request).getPathInfo();
-            if (pathInfo != null) {
+            if (pathInfo != null && !pathInfo.equals("") && !pathInfo.equals("/")) {
                 pathInfo = pathInfo.replaceAll("^/", "");
                 pathInfo = pathInfo.replaceAll("/$", "");
-                if (pathInfo != "") {
-                    pathSegments = Arrays.asList(pathInfo.split("/"));
-                }
+                pathSegments = Arrays.asList(pathInfo.split("/"));
             }
             request.setAttribute("pathSegments", pathSegments);
         }
