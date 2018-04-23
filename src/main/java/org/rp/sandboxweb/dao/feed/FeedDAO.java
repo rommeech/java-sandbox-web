@@ -24,19 +24,31 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
     public Feed getById(Long id) throws DAOException {
 
         Feed feed = null;
+        ResultSet resultSet = null;
 
         try(Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM feed WHERE id=?");
-            ResultSet resultSet = statement.executeQuery(id.toString())
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM feed WHERE id=?")
         ) {
+
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 feed = this.createFeedFromResultSet(resultSet);
             }
-
         } catch (SQLException | ModelException e) {
             logger.error("Cannot get row by ID: " + e);
             throw new DAOException("Cannot get row by ID", e);
+        }
+        finally {
+
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return feed;

@@ -1,4 +1,4 @@
-package org.rp.sandboxweb.service;
+package org.rp.sandboxweb.service.feed;
 
 import org.rp.sandboxweb.dao.DAOException;
 import org.rp.sandboxweb.dao.feed.FeedDAO;
@@ -17,6 +17,17 @@ public class FeedService {
             e.printStackTrace();
         }
         return feedList;
+    }
+
+    public Feed getFeed(Long id) {
+        Feed feed = null;
+        FeedDAO dao = new FeedDAO();
+        try {
+            feed = dao.getById(id);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return feed;
     }
 
 }

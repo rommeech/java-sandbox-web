@@ -19,6 +19,7 @@
             <td>${feed.id}</td>
             <td>${feed.feedUrl}</td>
             <td>${feed.status}</td>
+            <td><a href="${feed.id}">edit</a></td>
         </tr>
     </c:forEach>
 </table>
