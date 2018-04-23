@@ -14,9 +14,9 @@ public class DBConnectionFactory {
 
     private static Logger logger = LogManager.getLogger(DBConnectionFactory.class);
 
-    public static Connection getConnection() throws ExceptionDAO {
+    public static Connection getConnection() throws DAOException {
 
-        Context initCtx;
+        Context initCtx = null;
         Context envCtx;
         DataSource ds;
         Connection connection = null;
@@ -29,11 +29,18 @@ public class DBConnectionFactory {
             if (ds != null) {
                 connection = ds.getConnection();
             }
-
-            initCtx.close();
         } catch (NamingException | SQLException e) {
             logger.fatal("Cannot connect to db; " + e.getMessage());
-            throw new ExceptionDAO("Cannot connect to db; " + e.getMessage());
+            throw new DAOException("Cannot connect to db; " + e.getMessage());
+        }
+        finally {
+            if (initCtx != null) {
+                try {
+                    initCtx.close();
+                } catch (NamingException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return connection;

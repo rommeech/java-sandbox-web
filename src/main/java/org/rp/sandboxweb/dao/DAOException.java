@@ -1,18 +1,18 @@
 package org.rp.sandboxweb.dao;
 
-public class ExceptionDAO extends Exception {
+public class DAOException extends Exception {
 
     private static final long serialVersionUID = -8110551667446361597L;
 
-    public ExceptionDAO() {
+    public DAOException() {
         super();
     }
 
-    public ExceptionDAO(String message) {
+    public DAOException(String message) {
         super(message);
     }
 
-    public ExceptionDAO(String message, Throwable cause) {
+    public DAOException(String message, Throwable cause) {
         super(message, cause);
     }
 

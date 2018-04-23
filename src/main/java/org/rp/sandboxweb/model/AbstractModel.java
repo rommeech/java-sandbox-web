@@ -1,6 +1,5 @@
 package org.rp.sandboxweb.model;
 
-import com.sun.tools.internal.ws.processor.model.ModelException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +24,7 @@ public abstract class AbstractModel<T> implements Serializable {
         return id;
     }
 
-    public void setId(T id) throws ExceptionModel {
+    public void setId(T id) throws ModelException {
         if (this.id != null && !id.equals(this.id)) {
             logger.error("Try to change Model ID");
             throw new ModelException("Cannot change ID!");

@@ -18,7 +18,7 @@ public class PingServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ExceptionUI {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         logger.info("doGet called");
         resp.setContentType("text/plain, charset=UTF-8");
         resp.setStatus(HttpServletResponse.SC_OK);
@@ -26,7 +26,7 @@ public class PingServlet extends HttpServlet {
 
         /*try(Connection connection = DBConnectionFactory.getConnection()) {
             writer.println("connection: " + connection);
-        } catch (SQLException | ExceptionDAO e) {
+        } catch (SQLException | DAOException e) {
             logger.fatal("Cannot get DB connection; " + e.getMessage());
             throw new ExceptionUI("Cannot get DB connection; " + e.getMessage());
         }*/

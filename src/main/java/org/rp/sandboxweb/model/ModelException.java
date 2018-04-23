@@ -1,18 +1,18 @@
 package org.rp.sandboxweb.model;
 
-public class ExceptionModel extends Exception {
+public class ModelException extends Exception {
 
     private static final long serialVersionUID = 7284374320120938338L;
 
-    public ExceptionModel() {
+    public ModelException() {
         super();
     }
 
-    public ExceptionModel(String message) {
+    public ModelException(String message) {
         super(message);
     }
 
-    public ExceptionModel(String message, Throwable cause) {
+    public ModelException(String message, Throwable cause) {
         super(message, cause);
     }
 
