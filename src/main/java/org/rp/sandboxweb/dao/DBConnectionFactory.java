@@ -17,14 +17,12 @@ public class DBConnectionFactory {
     public static Connection getConnection() throws DAOException {
 
         Context initCtx = null;
-        Context envCtx;
         DataSource ds;
         Connection connection = null;
 
         try {
             initCtx = new InitialContext();
-            envCtx = (Context) initCtx.lookup("java:/comp/env");
-            ds = (DataSource) envCtx.lookup("jdbc/DBDataSource");
+            ds = (DataSource) initCtx.lookup("java:/comp/env/jdbc/DBDataSource");
 
             if (ds != null) {
                 connection = ds.getConnection();

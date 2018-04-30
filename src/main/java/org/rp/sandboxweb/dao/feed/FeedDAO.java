@@ -29,14 +29,13 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
         try(Connection connection = DBConnectionFactory.getConnection();
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM feed WHERE id=?")
         ) {
-
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
                 feed = this.createFeedFromResultSet(resultSet);
             }
-        } catch (SQLException | ModelException e) {
+        } catch (SQLException | ModelException | DAOException e) {
             logger.error("Cannot get row by ID: " + e);
             throw new DAOException("Cannot get row by ID", e);
         }
@@ -46,13 +45,13 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    logger.error("Cannot close ResultSet " + e);
+                    throw new DAOException("Cannot close ResultSet", e);
                 }
             }
         }
 
         return feed;
-
     }
 
     @Override
@@ -65,14 +64,14 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
             ResultSet resultSet = statement.executeQuery()
         ) {
 
-            feedList = new ArrayList();
+            feedList = new ArrayList<>();
 
             while (resultSet.next()) {
                 feedList.add(this.createFeedFromResultSet(resultSet));
             }
 
 
-        } catch (SQLException | ModelException e) {
+        } catch (SQLException | ModelException | DAOException e) {
             logger.error("Cannot get all rows: " + e);
             throw new DAOException("Cannot get all rows", e);
         }

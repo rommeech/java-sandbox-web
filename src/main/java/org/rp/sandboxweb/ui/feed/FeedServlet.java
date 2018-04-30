@@ -18,8 +18,10 @@ import java.util.List;
 @WebServlet(name = "FeedServlet", urlPatterns = {"/feeds", "/feeds/*"})
 public class FeedServlet extends HttpServlet {
 
-    // TODO: bean?
+    // TODO: use CDI here
     private FeedService feedService;
+
+
     private static Logger logger;
 
     @Override
