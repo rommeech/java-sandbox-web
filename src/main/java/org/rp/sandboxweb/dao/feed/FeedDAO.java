@@ -17,10 +17,6 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
 
     private static Logger logger = LogManager.getLogger(FeedDAO.class);
 
-    private static final String SQL_GET_BY_ID = "SELECT * FROM feed WHERE id=?";
-
-    private static final String SQL_GET_ALL = "SELECT * FROM feed";
-
     private static final String SQL_INSERT = "INSERT INTO feed " +
             "(feed_url, logo_url, title, description, status, author, next_job, job_interval) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -38,7 +34,7 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
         ResultSet resultSet = null;
 
         try(Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_BY_ID)
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM feed WHERE id=?")
         ) {
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
@@ -47,8 +43,8 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
                 feed = this.createFeedFromResultSet(resultSet);
             }
         } catch (SQLException | ModelException | DAOException e) {
-            logger.error("Cannot get row by ID: " + e);
-            throw new DAOException("Cannot get row by ID", e);
+            logger.error("FeedDAO: cannot get row by ID: " + e);
+            throw new DAOException("FeedDAO: cannot get row by ID", e);
         }
         finally {
 
@@ -56,8 +52,8 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
-                    logger.error("Cannot close ResultSet " + e);
-                    throw new DAOException("Cannot close ResultSet", e);
+                    logger.error("FeedDAO: cannot close ResultSet " + e);
+                    throw new DAOException("FeedDAO: c annot close ResultSet", e);
                 }
             }
         }
@@ -71,7 +67,7 @@ public class FeedDAO implements AbstractDAO<Feed, Long> {
         List<Feed> feedList;
 
         try(Connection connection = DBConnectionFactory.getConnection();
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_ALL);
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM feed");
             ResultSet resultSet = statement.executeQuery()
         ) {
 
