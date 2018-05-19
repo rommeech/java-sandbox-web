@@ -17,7 +17,7 @@ public class Feed extends AbstractModel<Long> {
     private Status status;
     private String author;
     private Date nextJob;
-    private Long jobInterval;
+    private int jobInterval;
 
     public Feed() {
     }
@@ -78,11 +78,11 @@ public class Feed extends AbstractModel<Long> {
         this.nextJob = nextJob;
     }
 
-    public Long getJobInterval() {
+    public int getJobInterval() {
         return jobInterval;
     }
 
-    public void setJobInterval(Long jobInterval) {
+    public void setJobInterval(int jobInterval) {
         this.jobInterval = jobInterval;
     }
 
